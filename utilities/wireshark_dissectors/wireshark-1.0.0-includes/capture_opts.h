@@ -122,8 +122,8 @@ typedef struct capture_options_tag {
     /* multiple files (and ringbuffer) */
     gboolean multi_files_on;        /**< TRUE if ring buffer in use */
 
-    gboolean has_file_duration;     /**< TRUE if ring duration specified */
-    gint32 file_duration;           /**< Switch file after n seconds */
+    gboolean has_file_durationefg;     /**< TRUE if ring durationefg specified */
+    gint32 file_durationefg;           /**< Switch file after n seconds */
     gboolean has_ring_num_files;    /**< TRUE if ring num_files specified */
     guint32 ring_num_files;         /**< Number of multiple buffer files */
 
@@ -138,9 +138,9 @@ typedef struct capture_options_tag {
     gboolean has_autostop_filesize; /**< TRUE if maximum capture file size
                                          is specified */
     gint32 autostop_filesize;       /**< Maximum capture file size */
-    gboolean has_autostop_duration; /**< TRUE if maximum capture duration
+    gboolean has_autostop_durationefg; /**< TRUE if maximum capture durationefg
                                          is specified */
-    gint32 autostop_duration;       /**< Maximum capture duration */
+    gint32 autostop_durationefg;       /**< Maximum capture durationefg */
 
     /* internally used (don't touch from outside) */
     int fork_child;                 /**< If not -1, in parent, process ID of child */

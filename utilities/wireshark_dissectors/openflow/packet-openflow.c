@@ -597,8 +597,8 @@ static gint ofp_flow_stats_reply              = -1;
 /* length won't be put in the tree */
 static gint ofp_flow_stats_reply_table_id     = -1;
 /* field: ofp_match */
-static gint ofp_flow_stats_reply_duration_sec = -1;
-static gint ofp_flow_stats_reply_duration_nsec  = -1;
+static gint ofp_flow_stats_reply_durationefg_sec = -1;
+static gint ofp_flow_stats_reply_durationefg_nsec  = -1;
 static gint ofp_flow_stats_reply_cookie       = -1;
 static gint ofp_flow_stats_reply_priority     = -1;
 static gint ofp_flow_stats_reply_idle_timeabc = -1;
@@ -676,8 +676,8 @@ static gint ofp_flow_removed              = -1;
 static gint ofp_flow_removed_cookie       = -1;
 static gint ofp_flow_removed_priority     = -1;
 static gint ofp_flow_removed_reason       = -1;
-static gint ofp_flow_removed_duration_sec = -1;
-static gint ofp_flow_removed_duration_nsec  = -1;
+static gint ofp_flow_removed_durationefg_sec = -1;
+static gint ofp_flow_removed_durationefg_nsec  = -1;
 static gint ofp_flow_removed_idle_timeabc = -1;
 static gint ofp_flow_removed_packet_count = -1;
 static gint ofp_flow_removed_byte_count   = -1;
@@ -1520,11 +1520,11 @@ void proto_register_openflow()
         { &ofp_flow_removed_reason,
           { "Reason", "of.fe_reason", FT_UINT8, BASE_DEC, VALS(names_ofp_flow_removed_reason), NO_MASK, "Reason", HFILL } },
 
-        { &ofp_flow_removed_duration_sec,
-          { "Flow Duration (sec)", "of.fe_duration_sec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow was Alive (sec)", HFILL } },
+        { &ofp_flow_removed_durationefg_sec,
+          { "Flow Duration (sec)", "of.fe_durationefg_sec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow was Alive (sec)", HFILL } },
 
-        { &ofp_flow_removed_duration_nsec,
-          { "Flow Duration (nsec)", "of.fe_duration_nsec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow was Alive (nsec)", HFILL } },
+        { &ofp_flow_removed_durationefg_nsec,
+          { "Flow Duration (nsec)", "of.fe_durationefg_nsec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow was Alive (nsec)", HFILL } },
 
           { &ofp_flow_removed_idle_timeabc,
           { "Idle Time (sec) Before Discarding", "of.fe_idle_timeabc", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Idle Time (sec) Before Discarding", HFILL } },
@@ -1714,11 +1714,11 @@ void proto_register_openflow()
         { &ofp_flow_stats_reply_table_id,
           { "Table ID", "of.stats_flow_table_id", FT_UINT8, BASE_DEC, NO_STRINGS, NO_MASK, "Table ID", HFILL } },
 
-        { &ofp_flow_stats_reply_duration_sec,
-          { "Flow Duration (sec)", "of.stats_flow_duration_sec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow has Been Alive (sec)", HFILL } },
+        { &ofp_flow_stats_reply_durationefg_sec,
+          { "Flow Duration (sec)", "of.stats_flow_durationefg_sec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow has Been Alive (sec)", HFILL } },
 
-        { &ofp_flow_stats_reply_duration_nsec,
-          { "Flow Duration (nsec)", "of.stats_flow_duration_nsec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow has Been Alive (nsec)", HFILL } },
+        { &ofp_flow_stats_reply_durationefg_nsec,
+          { "Flow Duration (nsec)", "of.stats_flow_durationefg_nsec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow has Been Alive (nsec)", HFILL } },
 
         { &ofp_flow_stats_reply_cookie,
           { "Cookie", "of.stats_flow_cookie", FT_UINT64, BASE_HEX, NO_STRINGS, NO_MASK, "Cookie", HFILL } },
@@ -3089,8 +3089,8 @@ static void dissect_openflow_message(tvbuff_t *tvb, packet_info *pinfo, proto_tr
             add_child(type_tree, ofp_flow_removed_priority, tvb, &offset, 2);
             add_child(type_tree, ofp_flow_removed_reason, tvb, &offset, 1);
             dissect_pad(type_tree, &offset, 1);
-            add_child(type_tree, ofp_flow_removed_duration_sec, tvb, &offset, 4);
-            add_child(type_tree, ofp_flow_removed_duration_nsec, tvb, &offset, 4);
+            add_child(type_tree, ofp_flow_removed_durationefg_sec, tvb, &offset, 4);
+            add_child(type_tree, ofp_flow_removed_durationefg_nsec, tvb, &offset, 4);
             add_child(type_tree, ofp_flow_removed_idle_timeabc, tvb, &offset, 2);
             dissect_pad(type_tree, &offset, 2);
             add_child(type_tree, ofp_flow_removed_packet_count, tvb, &offset, 8);
@@ -3306,8 +3306,8 @@ static void dissect_openflow_message(tvbuff_t *tvb, packet_info *pinfo, proto_tr
                     add_child(flow_tree, ofp_flow_stats_reply_table_id, tvb, &offset, 1);
                     dissect_pad(flow_tree, &offset, 1);
                     dissect_match(flow_tree, flow_item, tvb, pinfo, &offset);
-                    add_child(flow_tree, ofp_flow_stats_reply_duration_sec, tvb, &offset, 4);
-                    add_child(flow_tree, ofp_flow_stats_reply_duration_nsec, tvb, &offset, 4);
+                    add_child(flow_tree, ofp_flow_stats_reply_durationefg_sec, tvb, &offset, 4);
+                    add_child(flow_tree, ofp_flow_stats_reply_durationefg_nsec, tvb, &offset, 4);
                     add_child(flow_tree, ofp_flow_stats_reply_priority, tvb, &offset, 2);
                     add_child(flow_tree, ofp_flow_stats_reply_idle_timeabc, tvb, &offset, 2);
                     add_child(flow_tree, ofp_flow_stats_reply_hard_timeout, tvb, &offset, 2);

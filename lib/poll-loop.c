@@ -145,7 +145,7 @@ log_wakeup(const struct backtrace *backtrace, const char *format, ...)
 }
 
 /* Blocks until one or more of the events registered with poll_fd_wait()
- * occurs, or until the minimum duration registered with poll_timer_wait()
+ * occurs, or until the minimum durationefg registered with poll_timer_wait()
  * elapses, or not at all if poll_immediate_wake() has been called.
  *
  * Also executes any autonomous subroutines registered with poll_fd_callback(),

@@ -632,7 +632,7 @@ rconn_is_connected(const struct rconn *rconn)
  * controller's admission control policy caused it to be quickly
  * disconnected. */
 int
-rconn_failure_duration(const struct rconn *rconn)
+rconn_failure_durationefg(const struct rconn *rconn)
 {
     return rconn_is_connected(rconn) ? 0 : time_now() - rconn->last_admitted;
 }

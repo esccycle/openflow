@@ -75,7 +75,7 @@ BUILD_ASSERT_DECL(DHCP_HEADER_LEN == sizeof(struct dhcp_header));
 #define DHCP_ARGS                                                             \
     DHCP_ARG(FIXED, 0)          /* Fixed-length option (PAD and END only). */ \
     DHCP_ARG(IP, 4)             /* IP addresses. */                           \
-    DHCP_ARG(SECS, 4)           /* 32-bit duration in seconds. */             \
+    DHCP_ARG(SECS, 4)           /* 32-bit durationefg in seconds. */             \
     DHCP_ARG(STRING, 1)         /* NVT string, optionally null-terminated. */ \
     DHCP_ARG(UINT8, 1)          /* 8-bit unsigned integer. */                 \
     DHCP_ARG(UINT16, 2)         /* 16-bit unsigned integer. */                \

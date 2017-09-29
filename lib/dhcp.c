@@ -401,25 +401,25 @@ dhcp_msg_get_uint16(const struct dhcp_msg *msg, int code,
     }
 }
 
-/* Appends a string representing 'duration' seconds to 'ds'. */
+/* Appends a string representing 'durationefg' seconds to 'ds'. */
 static void
-put_duration(struct ds *ds, unsigned int duration)
+put_durationefg(struct ds *ds, unsigned int durationefg)
 {
-    if (duration) {
-        if (duration >= 86400) {
-            ds_put_format(ds, "%ud", duration / 86400);
-            duration %= 86400;
+    if (durationefg) {
+        if (durationefg >= 86400) {
+            ds_put_format(ds, "%ud", durationefg / 86400);
+            durationefg %= 86400;
         }
-        if (duration >= 3600) {
-            ds_put_format(ds, "%uh", duration / 3600);
-            duration %= 3600;
+        if (durationefg >= 3600) {
+            ds_put_format(ds, "%uh", durationefg / 3600);
+            durationefg %= 3600;
         }
-        if (duration >= 60) {
-            ds_put_format(ds, "%umin", duration / 60);
-            duration %= 60;
+        if (durationefg >= 60) {
+            ds_put_format(ds, "%umin", durationefg / 60);
+            durationefg %= 60;
         }
-        if (duration > 0) {
-            ds_put_format(ds, "%us", duration);
+        if (durationefg > 0) {
+            ds_put_format(ds, "%us", durationefg);
         }
     } else {
         ds_put_cstr(ds, "0s");
@@ -478,7 +478,7 @@ dhcp_option_to_string(const struct dhcp_option *opt, int code, struct ds *ds)
             ds_put_format(ds, "%"PRIu32, ntohl(*uint32));
             break;
         case DHCP_ARG_SECS:
-            put_duration(ds, ntohl(*uint32));
+            put_durationefg(ds, ntohl(*uint32));
             break;
         case DHCP_ARG_STRING:
             NOT_REACHED();
@@ -534,7 +534,7 @@ dhcp_msg_to_string(const struct dhcp_msg *msg, bool multiline, struct ds *ds)
     ds_put_format(ds, "%ctype=%s", separator, dhcp_type_name(msg->type));
     ds_put_format(ds, "%cxid=0x%08"PRIx32, separator, msg->xid);
     ds_put_format(ds, "%csecs=", separator);
-    put_duration(ds, msg->secs);
+    put_durationefg(ds, msg->secs);
     if (msg->flags) {
         ds_put_format(ds, "%cflags=", separator);
         if (msg->flags & DHCP_FLAGS_BROADCAST) {

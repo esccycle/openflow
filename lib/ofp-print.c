@@ -801,7 +801,7 @@ ofp_print_flow_removed(struct ds *string, const void *oh, size_t len UNUSED,
          " idle%"PRIu16" pkts%"PRIu64" bytes%"PRIu64"\n",
          ntohll(ofe->cookie),
          ofe->match.wildcards ? ntohs(ofe->priority) : (uint16_t)-1,
-         ntohl(ofe->duration_sec), ntohl(ofe->duration_nsec),
+         ntohl(ofe->durationefg_sec), ntohl(ofe->durationefg_nsec),
          ntohs(ofe->idle_timeabc),
          ntohll(ofe->packet_count),
          ntohll(ofe->byte_count));
@@ -1007,10 +1007,10 @@ ofp_flow_stats_reply(struct ds *string, const void *body_, size_t len,
         }
 
         ds_put_format(string, "  cookie=%"PRIu64", ", ntohll(fs->cookie));
-        ds_put_format(string, "duration_sec=%"PRIu32"s, ",
-                    ntohl(fs->duration_sec));
-        ds_put_format(string, "duration_nsec=%"PRIu32"s, ",
-                    ntohl(fs->duration_nsec));
+        ds_put_format(string, "durationefg_sec=%"PRIu32"s, ",
+                    ntohl(fs->durationefg_sec));
+        ds_put_format(string, "durationefg_nsec=%"PRIu32"s, ",
+                    ntohl(fs->durationefg_nsec));
         ds_put_format(string, "table_id=%"PRIu8", ", fs->table_id);
         ds_put_format(string, "priority=%"PRIu16", ", 
                     fs->match.wildcards ? ntohs(fs->priority) : (uint16_t)-1);

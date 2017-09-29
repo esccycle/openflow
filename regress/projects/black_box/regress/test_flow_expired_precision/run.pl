@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # test_flow_expired
-# This test checks if the flow duration time is in a reasonable range.
+# This test checks if the flow durationefg time is in a reasonable range.
 # This test assumes a reference switch as a target.
 # The switch polls flow expiration every 1 sec with jitter,
-# so we should expect 1sec difference for flow_duration.
+# so we should expect 1sec difference for flow_durationefg.
 
 use strict;
 use OF::Includes;
@@ -52,12 +52,12 @@ sub my_test {
 
 	compare( "ofp_flow_removed packet_count",
 		$$msg{'packet_count'}, '==', $pkt_total );
-	print "Duretion_sec : $$msg{'duration_sec'} sec\n";
-	print "Duration_nsec: $$msg{'duration_nsec'} nano sec\n";
+	print "Duretion_sec : $$msg{'durationefg_sec'} sec\n";
+	print "Duration_nsec: $$msg{'durationefg_nsec'} nano sec\n";
 
-	if (($$msg{'duration_sec'} < $max_idle)
-		|| ($$msg{'duration_sec'} > ($max_idle + $sample_period))) {
-		die "Error, duration_sec out of acceptable range";
+	if (($$msg{'durationefg_sec'} < $max_idle)
+		|| ($$msg{'durationefg_sec'} > ($max_idle + $sample_period))) {
+		die "Error, durationefg_sec out of acceptable range";
 	}
 
 }

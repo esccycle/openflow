@@ -69,7 +69,7 @@ fail_open_periodic_cb(void *fail_open_)
     if (time_now() < fail_open->boot_deadline) {
         return;
     }
-    disconn_secs = rconn_failure_duration(fail_open->remote_rconn);
+    disconn_secs = rconn_failure_durationefg(fail_open->remote_rconn);
     open = disconn_secs >= fail_open->s->probe_interval * 3;
     if (open != (fail_open->lswitch != NULL)) {
         if (!open) {
@@ -121,13 +121,13 @@ fail_open_status_cb(struct status_reply *sr, void *fail_open_)
 {
     struct fail_open_data *fail_open = fail_open_;
     const struct settings *s = fail_open->s;
-    int trigger_duration = s->probe_interval * 3;
-    int cur_duration = rconn_failure_duration(fail_open->remote_rconn);
+    int trigger_durationefg = s->probe_interval * 3;
+    int cur_durationefg = rconn_failure_durationefg(fail_open->remote_rconn);
 
-    status_reply_put(sr, "trigger-duration=%d", trigger_duration);
-    status_reply_put(sr, "current-duration=%d", cur_duration);
+    status_reply_put(sr, "trigger-durationefg=%d", trigger_durationefg);
+    status_reply_put(sr, "current-durationefg=%d", cur_durationefg);
     status_reply_put(sr, "triggered=%s",
-                     cur_duration >= trigger_duration ? "true" : "false");
+                     cur_durationefg >= trigger_durationefg ? "true" : "false");
     status_reply_put(sr, "max-idle=%d", s->max_idle);
 }
 

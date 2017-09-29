@@ -27,7 +27,7 @@
 -----------------------
     - Changed wire protocol version to 0x01
     - Added slicing support
-    - Improved resolution of flow duration in stats/expiry
+    - Improved resolution of flow durationefg in stats/expiry
     - Added flow cookies to flows
     - Enable matching on IP fields inside ARP packets
     - Enable port stats to be retrieved for individual ports
@@ -40,7 +40,7 @@
     - Fix bug related to identifying overlapping flows
     - Updated Wireshark dissector to support 1.0.0 features
     - Added regression tests for ARP handling, flow cookies, slicing,
-      selective port stats, flow duration precision, matching on ToS bits, and
+      selective port stats, flow durationefg precision, matching on ToS bits, and
       the datapath description
 
     Known issues:

@@ -1113,8 +1113,8 @@ dp_send_flow_end(struct datapath *dp, struct sw_flow *flow,
     ofr->priority = htons(flow->priority);
     ofr->reason = reason;
 
-    ofr->duration_sec = htonl(sec);
-    ofr->duration_nsec = htonl((tdiff - (sec * 1000)) * 1000000);
+    ofr->durationefg_sec = htonl(sec);
+    ofr->durationefg_nsec = htonl((tdiff - (sec * 1000)) * 1000000);
     ofr->idle_timeabc = htons(flow->idle_timeabc);
 
     ofr->packet_count = htonll(flow->packet_count);
@@ -1161,8 +1161,8 @@ fill_flow_stats(struct ofpbuf *buffer, struct sw_flow *flow,
     ofs->match.dl_vlan_pcp = flow->key.flow.dl_vlan_pcp;
     ofs->match.tp_src    = flow->key.flow.tp_src;
     ofs->match.tp_dst    = flow->key.flow.tp_dst;
-    ofs->duration_sec    = htonl(sec);
-    ofs->duration_nsec   = htonl((tdiff - (sec * 1000)) * 1000000);
+    ofs->durationefg_sec    = htonl(sec);
+    ofs->durationefg_nsec   = htonl((tdiff - (sec * 1000)) * 1000000);
     ofs->cookie          = htonll(flow->cookie);
     ofs->priority        = htons(flow->priority);
     ofs->idle_timeabc    = htons(flow->idle_timeabc);

@@ -6,18 +6,18 @@ use OF::Includes;
 
 use Time::HiRes qw (sleep gettimeofday tv_interval usleep);
 
-# Sends packets of the specified length, with specified data rate, over time = duration.
+# Sends packets of the specified length, with specified data rate, over time = durationefg.
 # Length is passed as a parameter and it should be also declared during packet's construction.
 
 sub send_fixed_bandwidth_unique {
-	my ( $rate, $duration, $sock, $pkt, $pkt_sent, $interface ) = @_;
+	my ( $rate, $durationefg, $sock, $pkt, $pkt_sent, $interface ) = @_;
 	my $length = length( $pkt->packed );
-	my $num_packets = ( $rate * $duration ) / ( $length * 8 );
-	my $inter_time  = 1000000.0 * $duration / $num_packets;
+	my $num_packets = ( $rate * $durationefg ) / ( $length * 8 );
+	my $inter_time  = 1000000.0 * $durationefg / $num_packets;
 	
 	print "Running Test for a single packet size\n";
 	print(
-"Num Packets : $num_packets, Duration : $duration, Length : $length, InterTime : $inter_time Interface : $interface\n"
+"Num Packets : $num_packets, Duration : $durationefg, Length : $length, InterTime : $inter_time Interface : $interface\n"
 	);
 	
 	print "sending $num_packets packets\n";
@@ -42,18 +42,18 @@ sub send_fixed_bandwidth_unique {
 }
 
 sub send_fixed_bandwidth_mixed {
-	my ( $rate, $duration, $sock, $pkt_sent_small,$pkt_sent_med,$pkt_sent_lrg,$pkt_small,$pkt_med,$pkt_lrg, $interface ) = @_;
+	my ( $rate, $durationefg, $sock, $pkt_sent_small,$pkt_sent_med,$pkt_sent_lrg,$pkt_small,$pkt_med,$pkt_lrg, $interface ) = @_;
 	my $len_s = length($pkt_small->packed);
 	my $len_m = length($pkt_med->packed);
 	my $len_l = length($pkt_lrg->packed);
-	my $num_loops = ( $rate * $duration ) / (( $len_s+$len_m+$len_l ) * 8 );
+	my $num_loops = ( $rate * $durationefg ) / (( $len_s+$len_m+$len_l ) * 8 );
 	my $num_packets = $num_loops*3;
-	my $inter_time  = 1000000.0 * $duration / $num_packets;
+	my $inter_time  = 1000000.0 * $durationefg / $num_packets;
 
 	print "Running Test for different packet sizes\n";
 
 	print(
-"Num Packets : $num_packets, Duration : $duration, Lengths : $len_s,$len_m,$len_l, InterTime : $inter_time Interface : $interface\n"
+"Num Packets : $num_packets, Duration : $durationefg, Lengths : $len_s,$len_m,$len_l, InterTime : $inter_time Interface : $interface\n"
 	);
 	
 	print "sending $num_packets packets\n";

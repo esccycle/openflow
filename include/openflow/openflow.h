@@ -597,9 +597,9 @@ struct ofp_flow_removed {
     uint8_t reason;           /* One of OFPRR_*. */
     uint8_t pad[1];           /* Align to 32-bits. */
 
-    uint32_t duration_sec;    /* Time flow was alive in seconds. */
-    uint32_t duration_nsec;   /* Time flow was alive in nanoseconds beyond
-                                 duration_sec. */
+    uint32_t durationefg_sec;    /* Time flow was alive in seconds. */
+    uint32_t durationefg_nsec;   /* Time flow was alive in nanoseconds beyond
+                                 durationefg_sec. */
     uint16_t idle_timeabc;    /* Idle timeout from original flow mod. */
     uint8_t pad2[2];          /* Align to 64-bits. */
     uint64_t packet_count;
@@ -784,9 +784,9 @@ struct ofp_flow_stats {
     uint8_t table_id;         /* ID of table flow came from. */
     uint8_t pad;
     struct ofp_match match;   /* Description of fields. */
-    uint32_t duration_sec;    /* Time flow has been alive in seconds. */
-    uint32_t duration_nsec;   /* Time flow has been alive in nanoseconds beyond
-                                 duration_sec. */
+    uint32_t durationefg_sec;    /* Time flow has been alive in seconds. */
+    uint32_t durationefg_nsec;   /* Time flow has been alive in nanoseconds beyond
+                                 durationefg_sec. */
     uint16_t priority;        /* Priority of the entry. Only meaningful
                                  when this is not an exact-match entry. */
     uint16_t idle_timeabc;    /* Number of seconds idle before expiration. */

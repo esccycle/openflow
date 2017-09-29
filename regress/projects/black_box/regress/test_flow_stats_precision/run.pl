@@ -125,16 +125,16 @@ sub my_test {
 		scalar( @{ $msg->{'body'} } ),
 		'==', 1
 	);
-	if ( $msg->{'body'}[0]->{'duration_sec'} != 0 ) {
-		die "Error, duration_sec out of acceptable range";
+	if ( $msg->{'body'}[0]->{'durationefg_sec'} != 0 ) {
+		die "Error, durationefg_sec out of acceptable range";
 	}
-	if (   $msg->{'body'}[0]->{'duration_nsec'} < 100000000
-		|| $msg->{'body'}[0]->{'duration_nsec'} > (100000000+$time_threshold) )
+	if (   $msg->{'body'}[0]->{'durationefg_nsec'} < 100000000
+		|| $msg->{'body'}[0]->{'durationefg_nsec'} > (100000000+$time_threshold) )
 	{
-		die "Error, duration_nsec out of acceptable range";
+		die "Error, durationefg_nsec out of acceptable range";
 	}
 
-	# Sleep 1 more second to test duration_sec
+	# Sleep 1 more second to test durationefg_sec
 	sleep 1.0;
 
 	# Send 'stats_request' message
@@ -176,13 +176,13 @@ sub my_test {
 		scalar( @{ $msg->{'body'} } ),
 		'==', 1
 	);
-	if ( $msg->{'body'}[0]->{'duration_sec'} != 1 ) {
-		die "Error, duration_sec out of acceptable range";
+	if ( $msg->{'body'}[0]->{'durationefg_sec'} != 1 ) {
+		die "Error, durationefg_sec out of acceptable range";
 	}
-	if (   $msg->{'body'}[0]->{'duration_nsec'} < 100000000
-		|| $msg->{'body'}[0]->{'duration_nsec'} > (100000000+$time_threshold) )
+	if (   $msg->{'body'}[0]->{'durationefg_nsec'} < 100000000
+		|| $msg->{'body'}[0]->{'durationefg_nsec'} > (100000000+$time_threshold) )
 	{
-		die "Error, duration_nsec out of acceptable range";
+		die "Error, durationefg_nsec out of acceptable range";
 	}
 
 }

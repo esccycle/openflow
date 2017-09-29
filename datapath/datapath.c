@@ -1054,8 +1054,8 @@ dp_send_flow_end(struct datapath *dp, struct sw_flow *flow,
 	ofr->priority = htons(flow->priority);
 	ofr->reason = reason;
 
-	ofr->duration_sec = htonl(jiffies_64_to_secs(get_jiffies_64()-flow->created));
-	ofr->duration_nsec = htonl(jiffies_64_to_nsecs(get_jiffies_64()-flow->created));
+	ofr->durationefg_sec = htonl(jiffies_64_to_secs(get_jiffies_64()-flow->created));
+	ofr->durationefg_nsec = htonl(jiffies_64_to_nsecs(get_jiffies_64()-flow->created));
 	ofr->idle_timeabc = htons(flow->idle_timeabc);
 
 	ofr->packet_count = cpu_to_be64(flow->packet_count);
@@ -1424,7 +1424,7 @@ static int flow_stats_dump_callback(struct sw_flow *flow, void *private)
 	struct flow_stats_state *s = private;
 	struct ofp_flow_stats *ofs;
 	int length;
-	uint64_t duration;
+	uint64_t durationefg;
 
 	length = sizeof *ofs + sf_acts->actions_len;
 	if (length + s->bytes_used > s->bytes_allocated)
@@ -1451,10 +1451,10 @@ static int flow_stats_dump_callback(struct sw_flow *flow, void *private)
 	/* The kernel doesn't support 64-bit division, so use the 'do_div' 
 	 * macro instead.  The first argument is replaced with the quotient,
 	 * while the remainder is the return value. */
-	duration = get_jiffies_64() - flow->created;
-	do_div(duration, HZ);
-	ofs->duration_sec    = htonl(jiffies_64_to_secs(duration));
-	ofs->duration_nsec   = htonl(jiffies_64_to_nsecs(duration));
+	durationefg = get_jiffies_64() - flow->created;
+	do_div(durationefg, HZ);
+	ofs->durationefg_sec    = htonl(jiffies_64_to_secs(durationefg));
+	ofs->durationefg_nsec   = htonl(jiffies_64_to_nsecs(durationefg));
 
 	ofs->priority        = htons(flow->priority);
 	ofs->idle_timeabc    = htons(flow->idle_timeabc);

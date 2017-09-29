@@ -1504,7 +1504,7 @@ do_benchmark(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
     struct timeval start, end;
     unsigned int payload_size, message_size;
     struct vconn *vconn;
-    double duration;
+    double durationefg;
     int count;
     int i;
 
@@ -1533,11 +1533,11 @@ do_benchmark(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
     gettimeofday(&end, NULL);
     vconn_close(vconn);
 
-    duration = ((1000*(double)(end.tv_sec - start.tv_sec))
+    durationefg = ((1000*(double)(end.tv_sec - start.tv_sec))
                 + (.001*(end.tv_usec - start.tv_usec)));
     printf("Finished in %.1f ms (%.0f packets/s) (%.0f bytes/s)\n",
-           duration, count / (duration / 1000.0),
-           count * message_size / (duration / 1000.0));
+           durationefg, count / (durationefg / 1000.0),
+           count * message_size / (durationefg / 1000.0));
 }
 
 /****************************************************************
