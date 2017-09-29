@@ -178,7 +178,7 @@ static const value_string names_ofp_packet_in_reason[] = {
 
 /** names from ofp_flow_removed_reason */
 static const value_string names_ofp_flow_removed_reason[] = {
-    { OFPRR_IDLE_TIMEOUT, "Flow idle time exceeded idle_timeout" },
+    { OFPRR_IDLE_TIMEOUT, "Flow idle time exceeded idle_timeabc" },
     { OFPRR_HARD_TIMEOUT, "Time exceeded hard_timeout" },
     { OFPRR_DELETE,       "Evicted by a DELETE flow mod." },
     { 0,                  NULL }
@@ -553,7 +553,7 @@ static gint ofp_flow_mod              = -1;
 /* field: ofp_match */
 static gint ofp_flow_mod_cookie       = -1;
 static gint ofp_flow_mod_command      = -1;
-static gint ofp_flow_mod_idle_timeout = -1;
+static gint ofp_flow_mod_idle_timeabc = -1;
 static gint ofp_flow_mod_hard_timeout = -1;
 static gint ofp_flow_mod_priority     = -1;
 static gint ofp_flow_mod_buffer_id    = -1;
@@ -601,7 +601,7 @@ static gint ofp_flow_stats_reply_duration_sec = -1;
 static gint ofp_flow_stats_reply_duration_nsec  = -1;
 static gint ofp_flow_stats_reply_cookie       = -1;
 static gint ofp_flow_stats_reply_priority     = -1;
-static gint ofp_flow_stats_reply_idle_timeout = -1;
+static gint ofp_flow_stats_reply_idle_timeabc = -1;
 static gint ofp_flow_stats_reply_hard_timeout = -1;
 static gint ofp_flow_stats_reply_packet_count = -1;
 static gint ofp_flow_stats_reply_byte_count   = -1;
@@ -678,7 +678,7 @@ static gint ofp_flow_removed_priority     = -1;
 static gint ofp_flow_removed_reason       = -1;
 static gint ofp_flow_removed_duration_sec = -1;
 static gint ofp_flow_removed_duration_nsec  = -1;
-static gint ofp_flow_removed_idle_timeout = -1;
+static gint ofp_flow_removed_idle_timeabc = -1;
 static gint ofp_flow_removed_packet_count = -1;
 static gint ofp_flow_removed_byte_count   = -1;
 
@@ -1483,7 +1483,7 @@ void proto_register_openflow()
         { &ofp_flow_mod_command,
           { "Command", "of.fm_command", FT_UINT16, BASE_DEC, VALS(names_flow_mod_command), NO_MASK, "Command", HFILL } },
 
-        { &ofp_flow_mod_idle_timeout,
+        { &ofp_flow_mod_idle_timeabc,
           { "Idle Time (sec) Before Discarding", "of.fm_max_idle", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Idle Time (sec) Before Discarding", HFILL } },
 
         { &ofp_flow_mod_hard_timeout,
@@ -1526,8 +1526,8 @@ void proto_register_openflow()
         { &ofp_flow_removed_duration_nsec,
           { "Flow Duration (nsec)", "of.fe_duration_nsec", FT_UINT32, BASE_DEC, NO_STRINGS, NO_MASK, "Time Flow was Alive (nsec)", HFILL } },
 
-          { &ofp_flow_removed_idle_timeout,
-          { "Idle Time (sec) Before Discarding", "of.fe_idle_timeout", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Idle Time (sec) Before Discarding", HFILL } },
+          { &ofp_flow_removed_idle_timeabc,
+          { "Idle Time (sec) Before Discarding", "of.fe_idle_timeabc", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Idle Time (sec) Before Discarding", HFILL } },
 
         { &ofp_flow_removed_packet_count,
           { "Packet Count", "of.fe_packet_count", FT_UINT64, BASE_DEC, NO_STRINGS, NO_MASK, "Packet Cout", HFILL } },
@@ -1726,8 +1726,8 @@ void proto_register_openflow()
         { &ofp_flow_stats_reply_priority,
           { "Priority", "of.stats_flow_priority", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Priority", HFILL } },
 
-        { &ofp_flow_stats_reply_idle_timeout,
-          { "Number of seconds idle before expiration", "of.stats_flow_idle_timeout", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Number of seconds idle before expiration", HFILL } },
+        { &ofp_flow_stats_reply_idle_timeabc,
+          { "Number of seconds idle before expiration", "of.stats_flow_idle_timeabc", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Number of seconds idle before expiration", HFILL } },
 
         { &ofp_flow_stats_reply_hard_timeout,
           { "Number of seconds before expiration", "of.stats_flow_hard_timeout", FT_UINT16, BASE_DEC, NO_STRINGS, NO_MASK, "Number of seconds before expiration", HFILL } },
@@ -3091,7 +3091,7 @@ static void dissect_openflow_message(tvbuff_t *tvb, packet_info *pinfo, proto_tr
             dissect_pad(type_tree, &offset, 1);
             add_child(type_tree, ofp_flow_removed_duration_sec, tvb, &offset, 4);
             add_child(type_tree, ofp_flow_removed_duration_nsec, tvb, &offset, 4);
-            add_child(type_tree, ofp_flow_removed_idle_timeout, tvb, &offset, 2);
+            add_child(type_tree, ofp_flow_removed_idle_timeabc, tvb, &offset, 2);
             dissect_pad(type_tree, &offset, 2);
             add_child(type_tree, ofp_flow_removed_packet_count, tvb, &offset, 8);
             add_child(type_tree, ofp_flow_removed_byte_count, tvb, &offset, 8);
@@ -3160,7 +3160,7 @@ static void dissect_openflow_message(tvbuff_t *tvb, packet_info *pinfo, proto_tr
             dissect_match(type_tree, type_item, tvb, pinfo, &offset);
             add_child(type_tree, ofp_flow_mod_cookie, tvb, &offset, 8);
             add_child(type_tree, ofp_flow_mod_command, tvb, &offset, 2);
-            add_child(type_tree, ofp_flow_mod_idle_timeout, tvb, &offset, 2);
+            add_child(type_tree, ofp_flow_mod_idle_timeabc, tvb, &offset, 2);
             add_child(type_tree, ofp_flow_mod_hard_timeout, tvb, &offset, 2);
             add_child(type_tree, ofp_flow_mod_priority, tvb, &offset, 2);
 
@@ -3309,7 +3309,7 @@ static void dissect_openflow_message(tvbuff_t *tvb, packet_info *pinfo, proto_tr
                     add_child(flow_tree, ofp_flow_stats_reply_duration_sec, tvb, &offset, 4);
                     add_child(flow_tree, ofp_flow_stats_reply_duration_nsec, tvb, &offset, 4);
                     add_child(flow_tree, ofp_flow_stats_reply_priority, tvb, &offset, 2);
-                    add_child(flow_tree, ofp_flow_stats_reply_idle_timeout, tvb, &offset, 2);
+                    add_child(flow_tree, ofp_flow_stats_reply_idle_timeabc, tvb, &offset, 2);
                     add_child(flow_tree, ofp_flow_stats_reply_hard_timeout, tvb, &offset, 2);
                     dissect_pad(flow_tree, &offset, 6);
                     add_child(flow_tree, ofp_flow_stats_reply_cookie, tvb, &offset, 8);

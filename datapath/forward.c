@@ -248,7 +248,7 @@ add_flow(struct sw_chain *chain, const struct sender *sender,
 	}
 
 	if (ntohs(ofm->flags) & OFPFF_EMERG) {
-		if (ntohs(ofm->idle_timeout) != OFP_FLOW_PERMANENT
+		if (ntohs(ofm->idle_timeabc) != OFP_FLOW_PERMANENT
 		    || ntohs(ofm->hard_timeout) != OFP_FLOW_PERMANENT) {
 			dp_send_error_msg(chain->dp, sender,
 					  OFPET_FLOW_MOD_FAILED,
@@ -259,7 +259,7 @@ add_flow(struct sw_chain *chain, const struct sender *sender,
 	}
 
 	/* Fill out flow. */
-	flow->idle_timeout = ntohs(ofm->idle_timeout);
+	flow->idle_timeabc = ntohs(ofm->idle_timeabc);
 	flow->hard_timeout = ntohs(ofm->hard_timeout);
         flow->send_flow_rem = (ntohs(ofm->flags) & OFPFF_SEND_FLOW_REM) ? 1 : 0;
         flow->emerg_flow = (ntohs(ofm->flags) & OFPFF_EMERG) ? 1 : 0;
@@ -331,7 +331,7 @@ mod_flow(struct sw_chain *chain, const struct sender *sender,
 			  ofm->actions, actions_len,
 			  (ntohs(ofm->flags) & OFPFF_EMERG) ? 1 : 0)) {
 		/* Fill out flow. */
-		flow->idle_timeout = ntohs(ofm->idle_timeout);
+		flow->idle_timeabc = ntohs(ofm->idle_timeabc);
 		flow->hard_timeout = ntohs(ofm->hard_timeout);
 		flow->send_flow_rem = (ntohs(ofm->flags) & OFPFF_SEND_FLOW_REM)
 			? 1 : 0;

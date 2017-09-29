@@ -1046,7 +1046,7 @@ sub create_flow_mod_from_udp_actionbytes {
                 header => $hdr_args,
                 match  => $match_args,
                 command   => $enums{"$mod_type"},
-                idle_timeout  => $max_idle,
+                idle_timeabc  => $max_idle,
                 hard_timeout  => $max_idle,
                 flags  => $flags,
                 priority => 0,
@@ -1089,11 +1089,11 @@ sub create_flow_mod_from_udp_action {
 
 sub wait_for_flow_expired {
 
-	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeout,
+	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeabc,
 		$cookie ) = @_;
 
 	wait_for_flow_expired_readsize( $ofp, $sock, $options_ref, $pkt_len,
-		$pkt_total, $idle_timeout, $cookie, undef);
+		$pkt_total, $idle_timeabc, $cookie, undef);
 }
 
 sub wait_for_flow_expired_all {
@@ -1107,10 +1107,10 @@ sub wait_for_flow_expired_all {
 
 sub wait_for_flow_expired_readone {
 
-	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeout,
+	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeabc,
 		$cookie ) = @_;
 
-	wait_for_flow_expired_readsize( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeout,
+	wait_for_flow_expired_readsize( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeabc,
 		$cookie, $ofp->sizeof('ofp_flow_removed') );
 }
 
@@ -1118,14 +1118,14 @@ sub wait_for_flow_expired_readsize {
 
 	# can specify the reading size from socket (by the last argument, $read_size_)
 
-	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeout,
+	my ( $ofp, $sock, $options_ref, $pkt_len, $pkt_total, $idle_timeabc,
 		$cookie, $read_size_ ) = @_;
 	wait_for_flow_expired_total_bytes( $ofp, $sock, $options_ref, ( $pkt_len * $pkt_total ),
-		$pkt_total, $idle_timeout, $cookie, $read_size_ );
+		$pkt_total, $idle_timeabc, $cookie, $read_size_ );
 }
 
 sub wait_for_flow_expired_total_bytes {
-	my ( $ofp, $sock, $options_ref, $bytes, $pkt_total, $idle_timeout,
+	my ( $ofp, $sock, $options_ref, $bytes, $pkt_total, $idle_timeabc,
 		$cookie, $read_size_ ) = @_;
 	my $read_size;
 
@@ -1161,8 +1161,8 @@ sub wait_for_flow_expired_total_bytes {
 	}
 	compare( "ofp_flow_removed packet_count",   $$msg{'packet_count'},      '==', $pkt_total );
 
-	if ( defined $idle_timeout ) {
-		compare( "ofp_flow_removed idle_timeout",   $$msg{'idle_timeout'},      '==', $idle_timeout );
+	if ( defined $idle_timeabc ) {
+		compare( "ofp_flow_removed idle_timeabc",   $$msg{'idle_timeabc'},      '==', $idle_timeabc );
 	}
 
 	if ( defined $cookie ) {
@@ -1816,7 +1816,7 @@ sub create_flow_mod_from_icmp_action {
 
                 #               command   => $enums{$mod_type},
                 command   => $enums{"$mod_type"},
-                idle_timeout  => $max_idle,
+                idle_timeabc  => $max_idle,
                 hard_timeout  => $max_idle,
                 flags  => $flags,
                 priority => 0,
@@ -1932,7 +1932,7 @@ sub create_flow_mod_from_arp_action {
 
                 #               command   => $enums{$mod_type},
                 command   => $enums{"$mod_type"},
-                idle_timeout  => $max_idle,
+                idle_timeabc  => $max_idle,
                 hard_timeout  => $max_idle,
                 flags  => $flags,
                 priority => 0,

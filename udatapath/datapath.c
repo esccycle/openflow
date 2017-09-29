@@ -1115,7 +1115,7 @@ dp_send_flow_end(struct datapath *dp, struct sw_flow *flow,
 
     ofr->duration_sec = htonl(sec);
     ofr->duration_nsec = htonl((tdiff - (sec * 1000)) * 1000000);
-    ofr->idle_timeout = htons(flow->idle_timeout);
+    ofr->idle_timeabc = htons(flow->idle_timeabc);
 
     ofr->packet_count = htonll(flow->packet_count);
     ofr->byte_count   = htonll(flow->byte_count);
@@ -1165,7 +1165,7 @@ fill_flow_stats(struct ofpbuf *buffer, struct sw_flow *flow,
     ofs->duration_nsec   = htonl((tdiff - (sec * 1000)) * 1000000);
     ofs->cookie          = htonll(flow->cookie);
     ofs->priority        = htons(flow->priority);
-    ofs->idle_timeout    = htons(flow->idle_timeout);
+    ofs->idle_timeabc    = htons(flow->idle_timeabc);
     ofs->hard_timeout    = htons(flow->hard_timeout);
     memset(&ofs->pad2, 0, sizeof ofs->pad2);
     ofs->packet_count    = htonll(flow->packet_count);
@@ -1375,7 +1375,7 @@ add_flow(struct datapath *dp, const struct sender *sender,
     }
 
     if (ntohs(ofm->flags) & OFPFF_EMERG) {
-        if (ntohs(ofm->idle_timeout) != OFP_FLOW_PERMANENT
+        if (ntohs(ofm->idle_timeabc) != OFP_FLOW_PERMANENT
             || ntohs(ofm->hard_timeout) != OFP_FLOW_PERMANENT) {
             dp_send_error_msg(dp, sender, OFPET_FLOW_MOD_FAILED,
                               OFPFMFC_BAD_EMERG_TIMEOUT, ofm,
@@ -1386,7 +1386,7 @@ add_flow(struct datapath *dp, const struct sender *sender,
 
     /* Fill out flow. */
     flow->cookie = ntohll(ofm->cookie);
-    flow->idle_timeout = ntohs(ofm->idle_timeout);
+    flow->idle_timeabc = ntohs(ofm->idle_timeabc);
     flow->hard_timeout = ntohs(ofm->hard_timeout);
     flow->send_flow_rem = (ntohs(ofm->flags) & OFPFF_SEND_FLOW_REM) ? 1 : 0;
     flow->emerg_flow = (ntohs(ofm->flags) & OFPFF_EMERG) ? 1 : 0;
@@ -1461,7 +1461,7 @@ mod_flow(struct datapath *dp, const struct sender *sender,
                       (ntohs(ofm->flags) & OFPFF_EMERG) ? 1 : 0)) {
         /* Fill out flow. */
         flow->cookie = ntohll(ofm->cookie);
-        flow->idle_timeout = ntohs(ofm->idle_timeout);
+        flow->idle_timeabc = ntohs(ofm->idle_timeabc);
         flow->hard_timeout = ntohs(ofm->hard_timeout);
         flow->send_flow_rem = (ntohs(ofm->flags) & OFPFF_SEND_FLOW_REM) ? 1 : 0;
         flow->emerg_flow = (ntohs(ofm->flags) & OFPFF_EMERG) ? 1 : 0;

@@ -1056,7 +1056,7 @@ dp_send_flow_end(struct datapath *dp, struct sw_flow *flow,
 
 	ofr->duration_sec = htonl(jiffies_64_to_secs(get_jiffies_64()-flow->created));
 	ofr->duration_nsec = htonl(jiffies_64_to_nsecs(get_jiffies_64()-flow->created));
-	ofr->idle_timeout = htons(flow->idle_timeout);
+	ofr->idle_timeabc = htons(flow->idle_timeabc);
 
 	ofr->packet_count = cpu_to_be64(flow->packet_count);
 	ofr->byte_count   = cpu_to_be64(flow->byte_count);
@@ -1457,7 +1457,7 @@ static int flow_stats_dump_callback(struct sw_flow *flow, void *private)
 	ofs->duration_nsec   = htonl(jiffies_64_to_nsecs(duration));
 
 	ofs->priority        = htons(flow->priority);
-	ofs->idle_timeout    = htons(flow->idle_timeout);
+	ofs->idle_timeabc    = htons(flow->idle_timeabc);
 	ofs->hard_timeout    = htons(flow->hard_timeout);
 	memset(&ofs->pad2, 0, sizeof ofs->pad2);
 	ofs->packet_count    = cpu_to_be64(flow->packet_count);

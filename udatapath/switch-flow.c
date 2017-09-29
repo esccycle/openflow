@@ -291,8 +291,8 @@ print_flow(const struct sw_flow_key *key)
 bool flow_timeout(struct sw_flow *flow)
 {
     uint64_t now = time_msec();
-    if (flow->idle_timeout != OFP_FLOW_PERMANENT
-            && now > flow->used + flow->idle_timeout * 1000) {
+    if (flow->idle_timeabc != OFP_FLOW_PERMANENT
+            && now > flow->used + flow->idle_timeabc * 1000) {
         flow->reason = OFPRR_IDLE_TIMEOUT;
         return true;
     } else if (flow->hard_timeout != OFP_FLOW_PERMANENT

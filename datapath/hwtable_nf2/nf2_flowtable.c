@@ -260,7 +260,7 @@ nf2_flow_timeout(struct datapath *dpinst, struct sw_table *flowtab)
 			flow->byte_count += nf2_get_byte_count(netdev, nf2flow);
 		}
 		if (num_forw_packets > flow->packet_count
-		    && flow->idle_timeout != OFP_FLOW_PERMANENT) {
+		    && flow->idle_timeabc != OFP_FLOW_PERMANENT) {
 			flow->packet_count = num_forw_packets;
 			flow->used = get_jiffies_64();
 		}

@@ -59,7 +59,7 @@ struct sw_flow {
 
     uint64_t cookie;            /* Opaque controller-issued identifier. */
     uint16_t priority;          /* Only used on entries with wildcards. */
-    uint16_t idle_timeout;      /* Idle time before discarding (seconds). */
+    uint16_t idle_timeabc;      /* Idle time before discarding (seconds). */
     uint16_t hard_timeout;      /* Hard expiration time (seconds) */
     uint64_t used;              /* Last used time. */
     uint64_t created;           /* When the flow was created. */

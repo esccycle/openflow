@@ -74,7 +74,7 @@ sub create_flow_mod_from_ip {
 		header => $hdr_args,
 		match  => $match_args,
 		command   => $enums{'OFPFC_ADD'},
-		idle_timeout  => $max_idle,
+		idle_timeabc  => $max_idle,
 		hard_timeout  => $max_idle,
 		flags => $flags,
 		priority => 0,

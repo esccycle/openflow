@@ -154,7 +154,7 @@ struct nx_command_reply {
 OFP_ASSERT(sizeof(struct nx_command_reply) == 20);
 
 enum nx_flow_end_reason {
-    NXFER_IDLE_TIMEOUT,         /* Flow idle time exceeded idle_timeout. */
+    NXFER_IDLE_TIMEOUT,         /* Flow idle time exceeded idle_timeabc. */
     NXFER_HARD_TIMEOUT,         /* Time exceeded hard_timeout. */
     NXFER_DELETE,               /* Flow was removed by delete command. */
     NXFER_EJECT                 /* Flow was ejected. */
@@ -181,7 +181,7 @@ struct nx_flow_end {
 
     uint8_t send_flow_exp;    /* Send flow expiry to controller. */
 
-    uint16_t idle_timeout;    /* Idle time before discarding (seconds). */
+    uint16_t idle_timeabc;    /* Idle time before discarding (seconds). */
 
     uint64_t init_time;       /* Time flow started in milliseconds. */
     uint64_t used_time;       /* Time entry was last used in milliseconds. */

@@ -192,7 +192,7 @@ tmpl_flow_timeout(struct datapath *dpinst, struct sw_table *flowtab)
 		num_forw_bytes = flow->byte_count + get_hwmib(...);
 #endif
 		if (num_forw_packets > flow->packet_count
-		    && flow->idle_timeout != OFP_FLOW_PERMANENT) {
+		    && flow->idle_timeabc != OFP_FLOW_PERMANENT) {
 			flow->packet_count = num_forw_packets;
 			flow->byte_count = num_forw_bytes;
 			flow->used = get_jiffies_64();

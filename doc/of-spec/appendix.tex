@@ -186,11 +186,11 @@ The \verb|command| field must be one of the following:
 \input{enum/ofp_flow_mod_command}
 The differences between \verb|OFPFC_MODIFY| and \verb|OFPFC_MODIFY_STRICT| are explained in Section \ref{flow_table:sec_chan:flow_mod} and differences between \verb|OFPFC_DELETE| and \verb|OFPFC_DELETE_STRICT| are explained in Section \ref{flow_table:sec_chan:flow_removal}. 
 \\\\
-The \verb|idle_timeout| and \verb|hard_timeout| fields control how quickly flows expire.  
+The \verb|idle_timeabc| and \verb|hard_timeout| fields control how quickly flows expire.  
 \\\\
-If the \verb|idle_timeout| is set and the \verb|hard_timeout| is zero, the entry must expire after \verb|idle_timeout| seconds with no received traffic.  If the \verb|idle_timeout| is zero and the \verb|hard_timeout| is set, the entry must expire in \verb|hard_timeout| seconds regardless of whether or not packets are hitting the entry.
+If the \verb|idle_timeabc| is set and the \verb|hard_timeout| is zero, the entry must expire after \verb|idle_timeabc| seconds with no received traffic.  If the \verb|idle_timeabc| is zero and the \verb|hard_timeout| is set, the entry must expire in \verb|hard_timeout| seconds regardless of whether or not packets are hitting the entry.
 \\\\
-If both \verb|idle_timeout| and \verb|hard_timeout| are set, the flow will timeout after \verb|idle_timeout| seconds with no traffic, or \verb|hard_timeout| seconds, whichever comes first.  If both \verb|idle_timeout| and \verb|hard_timeout| are zero, the entry is considered permanent and will never time out.  It can still be removed with a \verb|flow_mod| message of type \verb|OFPFC_DELETE|. 
+If both \verb|idle_timeabc| and \verb|hard_timeout| are set, the flow will timeout after \verb|idle_timeabc| seconds with no traffic, or \verb|hard_timeout| seconds, whichever comes first.  If both \verb|idle_timeabc| and \verb|hard_timeout| are zero, the entry is considered permanent and will never time out.  It can still be removed with a \verb|flow_mod| message of type \verb|OFPFC_DELETE|. 
 \\\\
 The \verb|priority| field is only relevant for flow entries with wildcard fields.  The priority field indicates table priority, where higher numbers are higher priorities; the switch must keep the highest-priority wildcard entries in the lowest-numbered (fastest) wildcard table, to ensure correctness.  It is the responsibility of each switch implementer to ensure that exact entries always match before wildcards entries, regardless of the table configuration.  
 \\\\
@@ -350,7 +350,7 @@ The \verb|reason| field is one of the following:
 \input{enum/ofp_flow_removed_reason}
 The \verb|duration_sec| and \verb|duration_nsec| fields are described in Section \ref{flow_duration_info}.
 \\\\
-The \verb|idle_timeout| field is directly copied from the flow mod that created this entry. 
+The \verb|idle_timeabc| field is directly copied from the flow mod that created this entry. 
 \\\\
 With the above three fields, one can find both the amount of time the flow was active, as well as the amount of time the flow received traffic.
 \\\\

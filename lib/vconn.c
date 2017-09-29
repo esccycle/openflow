@@ -893,11 +893,11 @@ make_flow_mod(uint16_t command, const struct flow *flow, size_t actions_len)
 
 struct ofpbuf *
 make_add_flow(const struct flow *flow, uint32_t buffer_id,
-              uint16_t idle_timeout, size_t actions_len)
+              uint16_t idle_timeabc, size_t actions_len)
 {
     struct ofpbuf *out = make_flow_mod(OFPFC_ADD, flow, actions_len);
     struct ofp_flow_mod *ofm = out->data;
-    ofm->idle_timeout = htons(idle_timeout);
+    ofm->idle_timeabc = htons(idle_timeabc);
     ofm->hard_timeout = htons(OFP_FLOW_PERMANENT);
     ofm->buffer_id = htonl(buffer_id);
     return out;
@@ -915,10 +915,10 @@ make_del_flow(const struct flow *flow)
 struct ofpbuf *
 make_add_simple_flow(const struct flow *flow,
                      uint32_t buffer_id, uint16_t out_port,
-                     uint16_t idle_timeout)
+                     uint16_t idle_timeabc)
 {
     struct ofp_action_output *oao;
-    struct ofpbuf *buffer = make_add_flow(flow, buffer_id, idle_timeout,
+    struct ofpbuf *buffer = make_add_flow(flow, buffer_id, idle_timeabc,
                                           sizeof *oao);
     oao = ofpbuf_put_zeros(buffer, sizeof *oao);
     oao->type = htons(OFPAT_OUTPUT);

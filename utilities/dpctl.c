@@ -987,7 +987,7 @@ parse_field(const char *name, const struct field **f_out)
 static void
 str_to_flow(char *string, struct ofp_match *match, struct ofpbuf *actions,
             uint8_t *table_idx, uint16_t *out_port, uint16_t *priority,
-            uint16_t *idle_timeout, uint16_t *hard_timeout,
+            uint16_t *idle_timeabc, uint16_t *hard_timeout,
             uint64_t *cookie)
 {
     char *save_ptr = NULL;
@@ -1003,8 +1003,8 @@ str_to_flow(char *string, struct ofp_match *match, struct ofpbuf *actions,
     if (priority) {
         *priority = OFP_DEFAULT_PRIORITY;
     }
-    if (idle_timeout) {
-        *idle_timeout = DEFAULT_IDLE_TIMEOUT;
+    if (idle_timeabc) {
+        *idle_timeabc = DEFAULT_IDLE_TIMEOUT;
     }
     if (hard_timeout) {
         *hard_timeout = OFP_FLOW_PERMANENT;
@@ -1056,8 +1056,8 @@ str_to_flow(char *string, struct ofp_match *match, struct ofpbuf *actions,
                 *out_port = atoi(value);
             } else if (priority && !strcmp(name, "priority")) {
                 *priority = atoi(value);
-            } else if (idle_timeout && !strcmp(name, "idle_timeout")) {
-                *idle_timeout = atoi(value);
+            } else if (idle_timeabc && !strcmp(name, "idle_timeabc")) {
+                *idle_timeabc = atoi(value);
             } else if (hard_timeout && !strcmp(name, "hard_timeout")) {
                 *hard_timeout = atoi(value);
             } else if (cookie && !strcmp(name, "cookie")) {
@@ -1150,7 +1150,7 @@ do_add_flow(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
     struct vconn *vconn;
     struct ofpbuf *buffer;
     struct ofp_flow_mod *ofm;
-    uint16_t priority, idle_timeout, hard_timeout;
+    uint16_t priority, idle_timeabc, hard_timeout;
     uint64_t cookie;
     uint8_t table_id;
     struct ofp_match match;
@@ -1159,13 +1159,13 @@ do_add_flow(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
      * 'buffer', so we can't keep pointers to across the str_to_flow() call. */
     make_openflow(sizeof *ofm, OFPT_FLOW_MOD, &buffer);
     str_to_flow(argv[2], &match, buffer,
-                &table_id, NULL, &priority, &idle_timeout, &hard_timeout,
+                &table_id, NULL, &priority, &idle_timeabc, &hard_timeout,
                 &cookie);
     ofm = buffer->data;
     ofm->match = match;
     ofm->command = htons(OFPFC_ADD);
     ofm->cookie = htonll(cookie);
-    ofm->idle_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeout);
+    ofm->idle_timeabc = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeabc);
     ofm->hard_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(hard_timeout);
     ofm->buffer_id = htonl(UINT32_MAX);
     ofm->priority = htons(priority);
@@ -1194,7 +1194,7 @@ do_add_flows(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
     while (fgets(line, sizeof line, file)) {
         struct ofpbuf *buffer;
         struct ofp_flow_mod *ofm;
-        uint16_t priority, idle_timeout, hard_timeout;
+        uint16_t priority, idle_timeabc, hard_timeout;
         uint64_t cookie;
         uint8_t table_id;
         struct ofp_match match;
@@ -1217,13 +1217,13 @@ do_add_flows(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
          * call. */
         ofm = make_openflow(sizeof *ofm, OFPT_FLOW_MOD, &buffer);
         str_to_flow(line, &match, buffer,
-                    &table_id, NULL, &priority, &idle_timeout, &hard_timeout,
+                    &table_id, NULL, &priority, &idle_timeabc, &hard_timeout,
                     &cookie);
         ofm = buffer->data;
         ofm->match = match;
         ofm->command = htons(OFPFC_ADD);
         ofm->cookie = htonll(cookie);
-        ofm->idle_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeout);
+        ofm->idle_timeabc = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeabc);
         ofm->hard_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(hard_timeout);
         ofm->buffer_id = htonl(UINT32_MAX);
         ofm->priority = htons(priority);
@@ -1240,7 +1240,7 @@ do_add_flows(const struct settings *s UNUSED, int argc UNUSED, char *argv[])
 static void
 do_mod_flows(const struct settings *s, int argc UNUSED, char *argv[])
 {
-    uint16_t priority, idle_timeout, hard_timeout;
+    uint16_t priority, idle_timeabc, hard_timeout;
     uint64_t cookie;
     uint8_t table_id;
     struct vconn *vconn;
@@ -1250,7 +1250,7 @@ do_mod_flows(const struct settings *s, int argc UNUSED, char *argv[])
     /* Parse and send. */
     ofm = make_openflow(sizeof *ofm, OFPT_FLOW_MOD, &buffer);
     str_to_flow(argv[2], &ofm->match, buffer,
-                &table_id, NULL, &priority, &idle_timeout, &hard_timeout,
+                &table_id, NULL, &priority, &idle_timeabc, &hard_timeout,
                 &cookie);
     if (s->strict) {
         ofm->command = htons(OFPFC_MODIFY_STRICT);
@@ -1258,7 +1258,7 @@ do_mod_flows(const struct settings *s, int argc UNUSED, char *argv[])
         ofm->command = htons(OFPFC_MODIFY);
     }
     ofm->cookie = htonll(cookie);
-    ofm->idle_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeout);
+    ofm->idle_timeabc = table_id == EMERG_TABLE_ID ? 0 : htons(idle_timeabc);
     ofm->hard_timeout = table_id == EMERG_TABLE_ID ? 0 : htons(hard_timeout);
     ofm->buffer_id = htonl(UINT32_MAX);
     if (table_id == EMERG_TABLE_ID)
@@ -1288,7 +1288,7 @@ static void do_del_flows(const struct settings *s, int argc, char *argv[])
     } else {
         ofm->command = htons(OFPFC_DELETE);
     }
-    ofm->idle_timeout = htons(0);
+    ofm->idle_timeabc = htons(0);
     ofm->hard_timeout = htons(0);
     ofm->buffer_id = htonl(UINT32_MAX);
     if (table_id == EMERG_TABLE_ID)

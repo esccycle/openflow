@@ -93,7 +93,7 @@ struct sw_flow {
 	struct sw_flow_key key;
 
 	uint16_t priority;      /* Only used on entries with wildcards. */
-	uint16_t idle_timeout;	/* Idle time before discarding (seconds). */
+	uint16_t idle_timeabc;	/* Idle time before discarding (seconds). */
 	uint16_t hard_timeout;  /* Hard expiration time (seconds) */
 	uint64_t used;          /* Last used time (in jiffies). */
 	uint8_t send_flow_rem;  /* Send a flow removed to the controller */

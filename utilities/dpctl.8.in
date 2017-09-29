@@ -466,7 +466,7 @@ The \fBadd-flow\fR and \fBadd-flows\fR commands support
 additional optional fields:
 
 .TP
-\fBidle_timeout=\fIseconds\fR
+\fBidle_timeabc=\fIseconds\fR
 Causes the flow to expire after the given number of seconds of
 inactivity.  A value of 0 prevents a flow from expiring due to
 inactivity.  The default is 60 seconds.

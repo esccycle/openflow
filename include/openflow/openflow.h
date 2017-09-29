@@ -542,7 +542,7 @@ OFP_ASSERT(sizeof(struct ofp_match) == 40);
 #define icmp_type tp_src
 #define icmp_code tp_dst
 
-/* Value used in "idle_timeout" and "hard_timeout" to indicate that the entry
+/* Value used in "idle_timeabc" and "hard_timeout" to indicate that the entry
  * is permanent. */
 #define OFP_FLOW_PERMANENT 0
 
@@ -564,7 +564,7 @@ struct ofp_flow_mod {
 
     /* Flow actions. */
     uint16_t command;             /* One of OFPFC_*. */
-    uint16_t idle_timeout;        /* Idle time before discarding (seconds). */
+    uint16_t idle_timeabc;        /* Idle time before discarding (seconds). */
     uint16_t hard_timeout;        /* Max time before discarding (seconds). */
     uint16_t priority;            /* Priority level of flow entry. */
     uint32_t buffer_id;           /* Buffered packet to apply to (or -1).
@@ -582,7 +582,7 @@ OFP_ASSERT(sizeof(struct ofp_flow_mod) == 72);
 
 /* Why was this flow removed? */
 enum ofp_flow_removed_reason {
-    OFPRR_IDLE_TIMEOUT,         /* Flow idle time exceeded idle_timeout. */
+    OFPRR_IDLE_TIMEOUT,         /* Flow idle time exceeded idle_timeabc. */
     OFPRR_HARD_TIMEOUT,         /* Time exceeded hard_timeout. */
     OFPRR_DELETE                /* Evicted by a DELETE flow mod. */
 };
@@ -600,7 +600,7 @@ struct ofp_flow_removed {
     uint32_t duration_sec;    /* Time flow was alive in seconds. */
     uint32_t duration_nsec;   /* Time flow was alive in nanoseconds beyond
                                  duration_sec. */
-    uint16_t idle_timeout;    /* Idle timeout from original flow mod. */
+    uint16_t idle_timeabc;    /* Idle timeout from original flow mod. */
     uint8_t pad2[2];          /* Align to 64-bits. */
     uint64_t packet_count;
     uint64_t byte_count;
@@ -789,7 +789,7 @@ struct ofp_flow_stats {
                                  duration_sec. */
     uint16_t priority;        /* Priority of the entry. Only meaningful
                                  when this is not an exact-match entry. */
-    uint16_t idle_timeout;    /* Number of seconds idle before expiration. */
+    uint16_t idle_timeabc;    /* Number of seconds idle before expiration. */
     uint16_t hard_timeout;    /* Number of seconds before expiration. */
     uint8_t pad2[6];          /* Align to 64-bits. */
     uint64_t cookie;          /* Opaque controller-issued identifier. */

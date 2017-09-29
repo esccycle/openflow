@@ -173,8 +173,8 @@ void flow_fill_match(struct ofp_match* to, const struct sw_flow_key* from)
 
 int flow_timeout(struct sw_flow *flow)
 {
-	if (flow->idle_timeout != OFP_FLOW_PERMANENT
-	    && time_after64(get_jiffies_64(), flow->used + flow->idle_timeout * HZ))
+	if (flow->idle_timeabc != OFP_FLOW_PERMANENT
+	    && time_after64(get_jiffies_64(), flow->used + flow->idle_timeabc * HZ))
 		return OFPRR_IDLE_TIMEOUT;
 	else if (flow->hard_timeout != OFP_FLOW_PERMANENT
 		 && time_after64(get_jiffies_64(),
